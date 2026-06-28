@@ -7,6 +7,7 @@
     
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="Explore_icon.png">
 
     <style>
         :root {
@@ -76,6 +77,11 @@
             flex-direction: column;
             align-items: center;
             gap: 10px;
+            transition: transform 0.2s ease;
+        }
+
+        .badge-btn:active {
+            transform: scale(0.96);
         }
 
         .badge-svg {
@@ -109,7 +115,6 @@
             margin: 0 auto;
         }
 
-        /* Fixed: Made visible by default to fix the blank screen cutoff */
         .feature-card {
             background: var(--apple-card-bg);
             border-radius: 24px;
@@ -150,16 +155,23 @@
             align-items: center;
         }
 
+        /* Continuous Live-Looping Dynamic Island Style */
         .island-expanded-pill {
             width: 85%;
             height: 48px;
             background: #000000;
             border-radius: 24px;
-            border: 1.5px solid var(--apple-blue);
+            border: 1.5px solid rgba(255, 255, 255, 0.1);
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 16px;
+            animation: islandPulseLoop 4s infinite ease-in-out;
+        }
+
+        @keyframes islandPulseLoop {
+            0%, 100% { transform: scale(1); border-color: rgba(255, 255, 255, 0.1); }
+            50% { transform: scale(1.03); border-color: var(--apple-blue); box-shadow: 0 0 15px rgba(0, 113, 227, 0.3); }
         }
 
         .album-art-mock {
@@ -167,42 +179,48 @@
             height: 24px;
             background: linear-gradient(45deg, #ff3b30, #ff9500);
             border-radius: 6px;
+            animation: artRotation 6s infinite linear;
+        }
+
+        @keyframes artRotation {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Animated Live Waveform bars inside the loop */
+        .waveform-container {
+            display: flex;
+            gap: 3px;
+            align-items: center;
+            height: 14px;
+        }
+
+        .wave-bar {
+            width: 2px;
+            height: 100%;
+            background: #34c759;
+            border-radius: 1px;
+            animation: bounceWave 0.8s infinite ease-in-out;
+        }
+        .wave-bar:nth-child(2) { animation-delay: 0.15s; }
+        .wave-bar:nth-child(3) { animation-delay: 0.3s; }
+        .wave-bar:nth-child(4) { animation-delay: 0.45s; }
+
+        @keyframes bounceWave {
+            0%, 100% { transform: scaleY(0.4); }
+            50% { transform: scaleY(1.2); }
         }
 
         .aod-clock-element {
             font-size: 64px;
             font-weight: 200;
             color: rgba(255, 255, 255, 0.85);
+            animation: clockDimLoop 5s infinite ease-in-out;
         }
 
-        .camera-focal-bar {
-            position: absolute;
-            bottom: 12px;
-            background: rgba(28, 28, 30, 0.75);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 6px 14px;
-            border-radius: 20px;
-            display: flex;
-            gap: 16px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .focal-node-active {
-            color: #ffd60a;
-        }
-
-        .safety-sos-glyph {
-            width: 60px;
-            height: 60px;
-            background: #ff453a;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 18px;
+        @keyframes clockDimLoop {
+            0%, 100% { opacity: 0.85; }
+            50% { opacity: 0.3; }
         }
 
         .card-footer {
@@ -227,6 +245,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .plus-action-node:active {
+            transform: scale(0.9);
         }
 
         .plus-action-node svg {
@@ -246,6 +270,7 @@
             border-top: 1px solid #323236;
         }
 
+        /* Fluid Expanding Fullscreen Overlay Architecture */
         #details-overlay {
             display: none;
             position: fixed;
@@ -257,6 +282,32 @@
             z-index: 10000;
             flex-direction: column;
             padding: calc(env(safe-area-inset-top) + 20px) 24px env(safe-area-inset-bottom);
+            opacity: 0;
+            transition: opacity 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        #details-overlay.active {
+            opacity: 1;
+        }
+
+        .overlay-island-header {
+            width: 180px;
+            height: 36px;
+            background: #000000;
+            border-radius: 18px;
+            margin: 0 auto 40px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #details-overlay.active .overlay-island-header {
+            width: 90%;
+            height: 90px;
+            border-radius: 28px;
+            background: #111112;
         }
 
         .close-overlay-trigger {
@@ -268,6 +319,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
+            margin-bottom: 10px;
         }
 
         .overlay-body {
@@ -275,8 +328,16 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1) 0.15s;
+        }
+
+        #details-overlay.active .overlay-body {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         #idle-safeguard-panel {
@@ -414,14 +475,19 @@
                 <div class="island-gradient-bg">
                     <div class="island-expanded-pill">
                         <div class="album-art-mock"></div>
-                        <span style="font-size: 13px; font-weight: 500; color: #fff; margin-right: auto; padding-left: 12px;">AirPods Pro</span>
-                        <span style="font-size: 13px; color: #3a86ff; font-weight: 600;">75%</span>
+                        <span style="font-size: 13px; font-weight: 500; color: #fff; margin-right: auto; padding-left: 12px;">Now Playing</span>
+                        <div class="waveform-container">
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="card-footer">
                 <div class="card-caption">Interact with music, alerts, and system notifications fluidly.</div>
-                <div class="plus-action-node" onclick="openModal('Dynamic Island', 'Surfaces alerts and live widgets fluidly.')">
+                <div class="plus-action-node" onclick="openModal('Dynamic Island', 'Surfaces alerts, music widgets, and fluid contextual parameters without disruptive transitions.')">
                     <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                 </div>
             </div>
@@ -434,7 +500,7 @@
             </div>
             <div class="card-footer">
                 <div class="card-caption">Lock screen details remain visible. The screen darkens intelligently to save power.</div>
-                <div class="plus-action-node" onclick="openModal('Always-On Display', 'The lock screen stays glanceable without awakening computing pipelines.')">
+                <div class="plus-action-node" onclick="openModal('Always-On Display', 'The display remains glanceable at a 1Hz refresh rate without waking system compute cycles.')">
                     <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                 </div>
             </div>
@@ -443,6 +509,9 @@
 
     <div id="details-overlay">
         <div class="close-overlay-trigger" onclick="closeModal()">✕</div>
+        <div class="overlay-island-header" id="modal-island-node">
+            <div style="width: 8px; height: 8px; background: #34c759; border-radius: 50%; margin-right: 8px; opacity: 0;" id="island-pulse-dot"></div>
+        </div>
         <div class="overlay-body">
             <h2 id="modal-title" style="font-size: 32px; margin-bottom: 16px; font-weight: 600;">Feature</h2>
             <p id="modal-desc" style="color: var(--text-gray); font-size: 16px; line-height: 1.5; max-width: 320px;"></p>
@@ -470,12 +539,27 @@
 
     <script>
         function openModal(title, text) {
+            const overlay = document.getElementById('details-overlay');
             document.getElementById('modal-title').innerText = title;
             document.getElementById('modal-desc').innerText = text;
-            document.getElementById('details-overlay').style.display = 'flex';
+            
+            overlay.style.display = 'flex';
+            // Force reflow for CSS animation timing
+            overlay.offsetHeight; 
+            overlay.classList.add('active');
+            
+            setTimeout(() => {
+                document.getElementById('island-pulse-dot').style.opacity = '1';
+            }, 300);
         }
+
         function closeModal() {
-            document.getElementById('details-overlay').style.display = 'none';
+            const overlay = document.getElementById('details-overlay');
+            overlay.classList.remove('active');
+            document.getElementById('island-pulse-dot').style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 400);
         }
 
         let inactiveTracker;
