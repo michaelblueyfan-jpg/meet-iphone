@@ -32,13 +32,11 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            padding: calc(env(safe-area-inset-top) + 20px) 16px calc(env(safe-area-inset-bottom) + 20px);
+            padding: calc(env(safe-area-inset-top) + 20px) 16px calc(env(safe-area-inset-bottom) + 40px);
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
-            scroll-behavior: smooth;
         }
 
-        /* Top Header Frame */
         .header-section {
             text-align: center;
             margin-top: 20px;
@@ -59,7 +57,6 @@
             line-height: 1.4;
         }
 
-        /* Action Row Badges */
         .badge-row {
             display: flex;
             justify-content: center;
@@ -79,12 +76,6 @@
             flex-direction: column;
             align-items: center;
             gap: 10px;
-            transition: transform 0.1s ease, background-color 0.15s;
-        }
-
-        .badge-btn:active {
-            transform: scale(0.96);
-            background-color: #2c2c2e;
         }
 
         .badge-svg {
@@ -109,7 +100,6 @@
             text-align: center;
         }
 
-        /* Scroll-Animation Container */
         .cards-feed {
             display: flex;
             flex-direction: column;
@@ -119,7 +109,7 @@
             margin: 0 auto;
         }
 
-        /* iOS Reveal Animation Styles */
+        /* Fixed: Made visible by default to fix the blank screen cutoff */
         .feature-card {
             background: var(--apple-card-bg);
             border-radius: 24px;
@@ -129,14 +119,6 @@
             flex-direction: column;
             position: relative;
             overflow: hidden;
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        .feature-card.reveal-active {
-            opacity: 1;
-            transform: translateY(0);
         }
 
         .card-title {
@@ -147,7 +129,6 @@
             margin-bottom: 20px;
         }
 
-        /* Premium CSS High-Fi Graphics Containers */
         .graphic-engine-box {
             width: 100%;
             height: 170px;
@@ -160,7 +141,6 @@
             align-items: center;
         }
 
-        /* Dynamic Island Display Component */
         .island-gradient-bg {
             background: linear-gradient(135deg, #140727 0%, #031424 100%);
             width: 100%;
@@ -168,7 +148,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .island-expanded-pill {
@@ -177,7 +156,6 @@
             background: #000000;
             border-radius: 24px;
             border: 1.5px solid var(--apple-blue);
-            box-shadow: 0 0 20px rgba(0, 113, 227, 0.4);
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -191,21 +169,12 @@
             border-radius: 6px;
         }
 
-        /* Always-On Display Typography Element */
         .aod-clock-element {
             font-size: 64px;
             font-weight: 200;
             color: rgba(255, 255, 255, 0.85);
-            letter-spacing: -1px;
-            animation: pulseAOD 4s ease-in-out infinite alternate;
         }
 
-        @keyframes pulseAOD {
-            from { opacity: 0.85; }
-            to { opacity: 0.5; }
-        }
-
-        /* Camera Focal Selector Grid Graphics */
         .camera-focal-bar {
             position: absolute;
             bottom: 12px;
@@ -218,14 +187,12 @@
             gap: 16px;
             font-size: 12px;
             font-weight: 600;
-            border: 0.5px solid rgba(255,255,255,0.1);
         }
 
         .focal-node-active {
             color: #ffd60a;
         }
 
-        /* Safety Critical Alert Component */
         .safety-sos-glyph {
             width: 60px;
             height: 60px;
@@ -236,11 +203,8 @@
             justify-content: center;
             font-weight: 700;
             font-size: 18px;
-            letter-spacing: 0.5px;
-            box-shadow: 0 0 25px rgba(255, 69, 58, 0.35);
         }
 
-        /* Bottom Info Elements */
         .card-footer {
             display: flex;
             justify-content: space-between;
@@ -263,12 +227,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            transition: background-color 0.1s;
-        }
-
-        .plus-action-node:active {
-            background-color: rgba(255, 255, 255, 0.3);
         }
 
         .plus-action-node svg {
@@ -288,7 +246,6 @@
             border-top: 1px solid #323236;
         }
 
-        /* System Details Popup View */
         #details-overlay {
             display: none;
             position: fixed;
@@ -300,12 +257,6 @@
             z-index: 10000;
             flex-direction: column;
             padding: calc(env(safe-area-inset-top) + 20px) 24px env(safe-area-inset-bottom);
-            animation: slidePanelUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        @keyframes slidePanelUp {
-            from { transform: translateY(100%); }
-            to { transform: translateY(0); }
         }
 
         .close-overlay-trigger {
@@ -317,7 +268,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
         }
 
         .overlay-body {
@@ -329,7 +279,6 @@
             text-align: center;
         }
 
-        /* "Still There?" Interactive Safeguard Screen Overlay */
         #idle-safeguard-panel {
             display: none;
             position: fixed;
@@ -343,7 +292,6 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
             opacity: 0;
             transition: opacity 0.4s ease;
         }
@@ -352,7 +300,6 @@
             font-size: 28px;
             font-weight: 500;
             margin-bottom: 6px;
-            letter-spacing: -0.5px;
         }
 
         .safeguard-subtitle {
@@ -392,12 +339,11 @@
             fill: none;
             stroke: #000000;
             stroke-width: 3;
-            stroke-dasharray: 339.29; /* 2 * PI * r (r=54) */
+            stroke-dasharray: 339.29;
             stroke-dashoffset: 0;
             transition: stroke-dashoffset 1s linear;
         }
 
-        /* High-Fidelity Video Attraction Screensaver Layer */
         #video-screensaver-panel {
             display: none;
             position: fixed;
@@ -407,7 +353,6 @@
             height: 100%;
             background: #000;
             z-index: 25000;
-            cursor: pointer;
             opacity: 0;
             transform: scale(1.05);
             transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
@@ -431,14 +376,7 @@
             transform: translateX(-50%);
             color: rgba(255, 255, 255, 0.6);
             font-size: 14px;
-            letter-spacing: 0.3px;
             font-weight: 400;
-            animation: breatheText 2.5s ease-in-out infinite alternate;
-        }
-
-        @keyframes breatheText {
-            from { opacity: 0.3; }
-            to { opacity: 0.8; }
         }
     </style>
 </head>
@@ -450,14 +388,14 @@
     </div>
 
     <div class="badge-row">
-        <div class="badge-btn" onclick="openModal('Compare Models', 'Review display sizes, form factors, and imaging capabilities between available hardware matrices.')">
+        <div class="badge-btn" onclick="openModal('Compare Models', 'Review display sizes and hardware variables.')">
             <svg class="badge-svg" viewBox="0 0 24 24">
                 <rect x="4" y="3" width="6" height="18" rx="2"/>
                 <rect x="14" y="5" width="6" height="14" rx="2"/>
             </svg>
             <span class="badge-label">Compare<br>your model</span>
         </div>
-        <div class="badge-btn" onclick="openModal('Pricing & Finance', 'Review direct configuration terms, cellular trade-in offsets, and recurring monthly matrix variables.')">
+        <div class="badge-btn" onclick="openModal('Pricing & Finance', 'Review trade-in offsets and options.')">
             <svg class="badge-svg" viewBox="0 0 24 24">
                 <circle cx="12" cy="12" r="9"/>
                 <line x1="12" y1="8" x2="12" y2="16"/>
@@ -470,21 +408,20 @@
     <div class="feed-divider">Discover new features and more</div>
 
     <div class="cards-feed">
-
         <div class="feature-card">
             <div class="card-title">What’s important,<br>right where<br>you can see it.</div>
             <div class="graphic-engine-box">
                 <div class="island-gradient-bg">
                     <div class="island-expanded-pill">
                         <div class="album-art-mock"></div>
-                        <span style="font-size: 13px; font-weight: 500; color: #fff; margin-right: auto; padding-left: 12px;">Wheeler's AirPods Pro</span>
+                        <span style="font-size: 13px; font-weight: 500; color: #fff; margin-right: auto; padding-left: 12px;">AirPods Pro</span>
                         <span style="font-size: 13px; color: #3a86ff; font-weight: 600;">75%</span>
                     </div>
                 </div>
             </div>
             <div class="card-footer">
-                <div class="card-caption">Interact with music, timers, map metrics, and system alerts fluidly.</div>
-                <div class="plus-action-node" onclick="openModal('Dynamic Island', 'An interactive display integration surfacing updates, contextual alerts, and live operational widgets.')">
+                <div class="card-caption">Interact with music, alerts, and system notifications fluidly.</div>
+                <div class="plus-action-node" onclick="openModal('Dynamic Island', 'Surfaces alerts and live widgets fluidly.')">
                     <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                 </div>
             </div>
@@ -496,55 +433,19 @@
                 <div class="aod-clock-element">9:41</div>
             </div>
             <div class="card-footer">
-                <div class="card-caption">Lock screen details remain visible. The screen darkens intelligently to protect cell longevity.</div>
-                <div class="plus-action-node" onclick="openModal('Always-On Display', 'The Lock Screen stays glanceable without awakening computing pipelines via high-efficiency refresh adjustments.')">
+                <div class="card-caption">Lock screen details remain visible. The screen darkens intelligently to save power.</div>
+                <div class="plus-action-node" onclick="openModal('Always-On Display', 'The lock screen stays glanceable without awakening computing pipelines.')">
                     <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                 </div>
             </div>
         </div>
-
-        <div class="feature-card">
-            <div class="card-title">Capture more detail,<br>shoot with more<br>versatility.</div>
-            <div class="graphic-engine-box" style="background: linear-gradient(180deg, #1a1a1c 0%, #0c0c0d 100%);">
-                <div class="camera-focal-bar">
-                    <span>.5x</span>
-                    <span class="focal-node-active">1x</span>
-                    <span>2x</span>
-                    <span>3x</span>
-                </div>
-            </div>
-            <div class="card-footer">
-                <div class="card-caption">Advanced 48MP main array configurations support pro-tier framing selections.</div>
-                <div class="plus-action-node" onclick="openModal('Pro Camera System', 'Quad-pixel sensors adapt directly to framing metrics, offering advanced stabilization algorithms.')">
-                    <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                </div>
-            </div>
-        </div>
-
-        <div class="feature-card">
-            <div class="card-title">Vital new safety<br>features to put you<br>at ease.</div>
-            <div class="graphic-engine-box" style="background: radial-gradient(circle, #1a1515 0%, #050505 100%);">
-                <div class="safety-sos-glyph">SOS</div>
-            </div>
-            <div class="card-footer">
-                <div class="card-caption">Crash Detection mechanics deploy communication relays directly when anomalies materialize.</div>
-                <div class="plus-action-node" onclick="openModal('Safety Architecture', 'Integrated sensors sample rapid acceleration and localized pressure differentials to deploy SOS routing.')">
-                    <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                </div>
-            </div>
-        </div>
-
-        <div class="disclaimer-block">
-            <p>Financing parameters and ACMI configurations require active validation profiles. Operational variables subject to cellular provisioning parameters.</p>
-        </div>
-
     </div>
 
     <div id="details-overlay">
         <div class="close-overlay-trigger" onclick="closeModal()">✕</div>
         <div class="overlay-body">
             <h2 id="modal-title" style="font-size: 32px; margin-bottom: 16px; font-weight: 600;">Feature</h2>
-            <p id="modal-desc" style="color: var(--text-gray); font-size: 16px; line-height: 1.5; max-width: 320px;">Detailed architecture metrics.</p>
+            <p id="modal-desc" style="color: var(--text-gray); font-size: 16px; line-height: 1.5; max-width: 320px;"></p>
         </div>
     </div>
 
@@ -562,31 +463,12 @@
 
     <div id="video-screensaver-panel" onclick="wakeFromScreensaver()">
         <video id="attraction-video" class="screensaver-video" loop muted playsinline>
-            <source src="IPhone.mp4" type="video/mp4">
+            <source src="iPhone.mp4" type="video/mp4">
         </video>
         <div class="tap-to-explore-nudge">Tap to Explore</div>
     </div>
 
     <script>
-        // Request System Alert Clearances
-        if (Notification.permission !== "granted") {
-            Notification.requestPermission();
-        }
-
-        // --- SCROLL ANIMATION ---
-        const scrollObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('reveal-active');
-                }
-            });
-        }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
-
-        document.querySelectorAll('.feature-card').forEach(card => {
-            scrollObserver.observe(card);
-        });
-
-        // --- MODAL MANAGER ---
         function openModal(title, text) {
             document.getElementById('modal-title').innerText = title;
             document.getElementById('modal-desc').innerText = text;
@@ -596,45 +478,27 @@
             document.getElementById('details-overlay').style.display = 'none';
         }
 
-        // --- PUSH NOTIFICATION EXIT TRIGGERS ---
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden && Notification.permission === "granted") {
-                setTimeout(() => {
-                    if (document.hidden) {
-                        new Notification("Explore", {
-                            body: "Open this app to learn more about products on display and see pricing.",
-                            icon: "Explore_icon.png"
-                        });
-                    }
-                }, 3000);
-            }
-        });
-
-        // --- SELF-CLOSING IDLE OVERLAY & VIDEO ENGINE ---
         let inactiveTracker;
         let countdownTracker;
         let workingSeconds = 15;
         let isScreensaverActive = false;
-        const totalCircumference = 2 * Math.PI * 54; // 339.29
+        const totalCircumference = 2 * Math.PI * 54;
 
         function initializeIdleSystem() {
-            if (isScreensaverActive) return; // Don't queue timers if video is already running
-            inactiveTracker = setTimeout(launchSafeguardPanel, 45000); // 45 seconds to warning
+            if (isScreensaverActive) return;
+            inactiveTracker = setTimeout(launchSafeguardPanel, 45000);
         }
 
         function resetIdleSystem() {
-            if (isScreensaverActive) return; // Click went to video wake, don't interrupt
-            
+            if (isScreensaverActive) return;
             clearTimeout(inactiveTracker);
             clearInterval(countdownTracker);
             
-            // Hide safeguard layout safely if open
             document.getElementById('idle-safeguard-panel').style.opacity = '0';
             setTimeout(() => {
                 document.getElementById('idle-safeguard-panel').style.display = 'none';
             }, 400);
             
-            // Reset circular paths
             const indicator = document.getElementById('spinning-indicator');
             indicator.style.transition = 'none';
             indicator.style.strokeDashoffset = 0;
@@ -661,16 +525,10 @@
                 
                 if (workingSeconds <= 0) {
                     clearInterval(countdownTracker);
-                    
-                    // Hide warning frame
                     panel.style.opacity = '0';
                     setTimeout(() => { panel.style.display = 'none'; }, 400);
-
-                    // Clear any open popups and scroll safely back to top
                     closeModal();
-                    window.scrollTo({ top: 0, behavior: 'instant' });
-
-                    // Trigger the high-fidelity video screensaver loop
+                    window.scrollTo({ top: 0 });
                     launchVideoScreensaver();
                 }
             }, 1000);
@@ -680,41 +538,30 @@
             isScreensaverActive = true;
             const videoPanel = document.getElementById('video-screensaver-panel');
             const videoEl = document.getElementById('attraction-video');
-            
             videoPanel.style.display = 'block';
-            // Force a layout reflow to allow opacity transition
             videoPanel.offsetHeight; 
             videoPanel.classList.add('visible');
-            
-            videoEl.play().catch(err => console.log("Video auto-play initiated on user reset sequence alignment."));
+            videoEl.play().catch(err => console.log("Video playback initiated."));
         }
 
         function wakeFromScreensaver() {
             const videoPanel = document.getElementById('video-screensaver-panel');
             const videoEl = document.getElementById('attraction-video');
-            
-            // Fade and scale back out elegantly
             videoPanel.classList.remove('visible');
-            
             setTimeout(() => {
                 videoEl.pause();
                 videoEl.currentTime = 0;
                 videoPanel.style.display = 'none';
-                
-                // Reset tracking loops back to listening states
                 isScreensaverActive = false;
                 resetIdleSystem();
             }, 500);
         }
 
-        // Bind core interaction flags
         ['mousemove', 'touchstart', 'scroll', 'click'].forEach(evt => {
             window.addEventListener(evt, resetIdleSystem, { passive: true });
         });
 
-        // Fire loop on page mount
         initializeIdleSystem();
     </script>
-
 </body>
 </html>
